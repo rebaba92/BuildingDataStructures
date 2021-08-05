@@ -8,6 +8,7 @@ public class Main {
 	// write your code here
 
         //create the array.
+        System.out.println("Test Commit and Push");
 
     }
 }
