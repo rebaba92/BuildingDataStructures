@@ -1,5 +1,6 @@
 package com.company;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Array {
@@ -17,7 +18,7 @@ public class Array {
 
     //display contents on an Array
     public void display(int[] A) {
-        for (int n: A) {
+        for (int n : A) {
             System.out.print(n + ",");
         }
     }
@@ -42,31 +43,34 @@ public class Array {
             }
         }
     }
+
     //insert at chosen index.
     public void insert(int index, int n) {
         int endingIndex = 0;
-        if (index < A.length && index > 0) {
+        if (index < A.length && index >= 0) {
             //get the index of the first 0 value.
-            for(int i = 0; i < A.length; i++) {
+            for (int i = 0; i < A.length; i++) {
                 if (A[i] == 0) {
                     endingIndex = i;
                     break;
                 }
             }
+            //shift the elements in the array.
+            for (int i = endingIndex; i > index; i--) {
+                A[i] = A[i - 1];
+                System.out.println(endingIndex);
+            }
+            A[index] = n;
+        } else {
+            System.out.println("There is no room to insert into this array.");
         }
-        //shift the elements in the array.
-        for(int i = endingIndex; i > index; i--){
-            A[i] = A[i - 1];
-            System.out.println(endingIndex);
-        }
-        A[index] = n;
     }
 
-    public void delete(int index){
+    public void delete(int index) {
         int endingIndex = 0;
         if (index < A.length && index >= 0) {
             //get the index of the first 0 value.
-            for(int i = 0; i < A.length; i++) {
+            for (int i = 0; i < A.length; i++) {
                 if (A[i] == 0) {
                     endingIndex = i;
                     break;
@@ -74,16 +78,64 @@ public class Array {
             }
             A[index] = 0;
             //left shift all the elements.
-            for(int i = index; i < endingIndex; i++){
+            for (int i = index; i < endingIndex; i++) {
                 A[i] = A[i + 1];
             }
         } else {
             System.out.println("The index is out of bounds.");
         }
-        //set the element it's at to 0. basically "removing" it.
-
     }
 
+    //creating a linear search
+    public int linearSearch(int key) {
+        for (int i = 0; i < A.length; i++) {
+            if (key == A[i]) {
+                swap(A[i], A[0]);
+                return 0;
+            }
+        }
+        return -1;
+    }
 
+    private void swap(int a, int b) {
+        int temp = a;
+        a = b;
+        b = temp;
+    }
+
+    public int binarySearch(int[] A, int key) {
+        int low = 0;
+        int high = A.length - 1;
+        //sort the array before performing the search.
+        Arrays.sort(A);
+
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            if (key == A[mid]) {
+                return mid;
+            } else if (key < A[mid]) {
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return -1;
+    }
+
+    public int recursiveBinSearch(int[] A, int low, int high, int key) {
+        Arrays.sort(A);
+        int mid;
+        if (low <= high) {
+            mid = (low + high) / 2;
+            if (key == A[mid]) {
+                return mid;
+            } else if (key < A[mid]) {
+                return recursiveBinSearch(A, low, mid - 1, key);
+            } else {
+                return recursiveBinSearch(A, mid + 1, high, key);
+            }
+        }
+        return -1;
+    }
 
 }
