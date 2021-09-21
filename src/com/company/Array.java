@@ -138,4 +138,139 @@ public class Array {
         return -1;
     }
 
+    public int get(int index) {
+        if (index < 0 || index >= length) {
+            return -1;
+        }
+        return A[index];
+    }
+
+    public void set(int index, int value) {
+        if (index < 0 || index >= length) {
+            System.out.println("Index does not exist.");
+        }
+        A[index] = value;
+    }
+
+    public int maxValue() {
+        int max = 0;
+        for (int i = 0; i < A.length; i++) {
+            if (max < A[i]) {
+                max = A[i];
+            }
+        }
+        return max;
+    }
+
+    public int minValue() {
+        int min = A[0];
+        for (int i = 0; i < A.length; i++) {
+            if (min > A[i]) {
+                min = A[i];
+            }
+        }
+        return min;
+    }
+
+    public int sum() {
+        int total = 0;
+        for (int i = 0; i < length; i++) {
+            total += A[i];
+        }
+        return total;
+    }
+
+    public int recursiveSum(int[] A, int n) {
+        if (n < 0) {
+            return 0;
+        } else {
+            return recursiveSum(A, n - 1) + A[n];
+        }
+    }
+
+    public int average() {
+        int total = 0;
+        for (int i = 0; i < length; i++) {
+            total += A[i];
+        }
+        return total / length - 1;
+    }
+
+    public void reverse() {
+        int[] B = new int[length];
+        int k = 0;
+        for (int i = length - 1; i >= 0; i--) {
+            B[k] = A[i];
+            k++;
+        }
+        A = B;
+    }
+
+    public void reverse2(){
+        int temp = 0;
+        for(int i = 0, j = length-1; i < j; i++, j--){
+            temp = A[i];
+            A[i] = A[j];
+            A[j] = temp;
+
+        }
+    }
+    public void leftShift(){
+        for(int  i = 0; i < length; i++){
+            if(i < length-1){
+                A[i] = A[i+1];
+            }
+        }
+    }
+    public void rightShift(){
+        for(int i = length-1; i >= 0; i--){
+            if(i > 0){
+                A[i] = A[i-1];
+            }
+        }
+    }
+
+    public void insertInSorted(int num){
+        int insertLocation = 0;
+        for(int i = 0; i < length; i++){
+            if(num < A[i]){
+                insertLocation = i;
+                break;
+            }else if(num == A[i]){
+                insertLocation = i+1;
+                break;
+            }
+        }
+        for(int i = length-1; i > insertLocation; i--){
+                A[i] = A[i-1];
+        }
+        A[insertLocation] = num;
+    }
+
+    public boolean isSorted() {
+        for (int i = 0; i < length; i++) {
+            if (i < length - 1) {
+                if (A[i] > A[i + 1]) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public int[] mergeArrays(int[]B, int[]C){
+        int[] d = new int[B.length + C.length];
+        for(int k=0,i=0, j=0; k < d.length-1; k++){
+            if(B[i] < C[j]){
+                d[k] = B[i];
+                i++;
+            }else if(B[i] > C[j]){
+                d[k] = C[j];
+                j++;
+            }
+        }
+        return d;
+    }
+
+
 }
